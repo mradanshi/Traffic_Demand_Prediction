@@ -1,0 +1,94 @@
+Traffic Demand Prediction - Solution Approach
+
+Objective
+
+The objective of this project is to predict traffic demand using the provided road, weather, location, and temporal information. A supervised machine learning approach was used to build a regression model capable of estimating traffic demand for unseen test data.
+
+Dataset Preparation
+
+The training and testing datasets were loaded using the Pandas library.
+
+Missing Value Handling
+
+- Missing values in the RoadType column were replaced with "Unknown".
+- Missing values in the Weather column were replaced with "Unknown".
+- Missing values in the Temperature column were replaced with the median temperature value.
+
+Feature Engineering
+
+Time Feature Extraction
+
+The timestamp column was split into:
+- hour
+- minute
+
+Binary Feature Encoding
+
+LargeVehicles:
+- Allowed -> 1
+- Not Allowed -> 0
+
+Landmarks:
+- Yes -> 1
+- No -> 0
+
+Features Used
+
+- geohash
+- day
+- RoadType
+- NumberofLanes
+- LargeVehicles
+- Landmarks
+- Temperature
+- Weather
+- hour
+- minute
+
+Model Selection
+
+CatBoost Regressor was used because it handles categorical variables effectively and performs well on tabular datasets.
+
+Model Parameters
+
+- iterations = 500
+- depth = 8
+- learning_rate = 0.05
+- loss_function = RMSE
+
+Categorical Features
+
+- geohash
+- RoadType
+- Weather
+
+Validation Strategy
+
+The dataset was split into:
+- 80% Training Data
+- 20% Validation Data
+
+using train_test_split(test_size=0.2, random_state=42).
+
+Performance was evaluated using the R² metric.
+
+Model Training
+
+The model was first trained on the training split and evaluated on the validation split. After validation, the model was retrained on the full training dataset.
+
+Prediction and Submission
+
+Predictions were generated for the test dataset and saved in submission.csv containing:
+- Index
+- demand
+
+Tools and Libraries Used
+
+- Python
+- Pandas
+- Scikit-learn
+- CatBoost
+
+Conclusion
+
+A CatBoost-based regression pipeline was developed for traffic demand prediction using data preprocessing, feature engineering, model training, validation, and prediction generation.
